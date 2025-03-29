@@ -21,16 +21,17 @@ model User {
 }
 
 model Employee {
-  id            String     @id @default(uuid()) @map("_id")
-  name          String
-  cpf           String     @unique
-  admissionDate DateTime
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  positionId    String?
-  position      Position?  @relation(fields: [positionId], references: [id])
-  vacations     Vacation[]
-  user          User?      @relation
+  id                String     @id @default(uuid()) @map("_id")
+  positionId        String?
+  name              String
+  cpf               String     @unique
+  admissionDate     DateTime
+  isPendingVacation Boolean    @default(false)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  position          Position?  @relation(fields: [positionId], references: [id])
+  vacations         Vacation[]
+  user              User?      @relation
 
   @@map("employees")
 }
@@ -46,13 +47,13 @@ model Position {
 
 model Vacation {
   id             String   @id @default(uuid()) @map("_id")
+  employeeId     String
   isVacationSold Boolean  @default(false)
   soldDays       Int      @default(0)
   startDate      DateTime
   endDate        DateTime
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  employeeId     String
   employee       Employee @relation(fields: [employeeId], references: [id])
 
   @@map("vacation")

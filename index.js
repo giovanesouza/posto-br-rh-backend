@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import { userRoutes } from './src/routes/UserRoutes.js'
+import { userRoutes } from './src/routes/UserRoutes.js';
+import { employeeRoutes } from './src/routes/EmployeeRoutes.js';
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(userRoutes);
+app.use(employeeRoutes);
 
 
 app.listen(PORT, () => {
