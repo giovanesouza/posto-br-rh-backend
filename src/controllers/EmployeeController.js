@@ -7,13 +7,19 @@ const convertDateToISODateTime = (date) => new Date(date).toISOString();
 
 export class EmployeeController {
     async createEmployee(req, res) {
-        const { name, cpf, admissionDate, isPendingVacation } = req.body;
+        const { employeeId, name, cpf, admissionDate, isPendingVacation } = req.body;
         try {
             const employeeFound = await findEmployeeByCPF(cpf);
             if (employeeFound) return res.status(409).json({ message: 'Funcionário já cadastrado!' });
 
             const employee = await prismaClient.employee.create({
-                data: { name, cpf, admissionDate: convertDateToISODateTime(admissionDate), isPendingVacation },
+                data: {
+                    employeeId,
+                    name,
+                    cpf,
+                    admissionDate: convertDateToISODateTime(admissionDate),
+                    isPendingVacation
+                },
             });
 
             return res.status(201).json(employee);
@@ -24,7 +30,12 @@ export class EmployeeController {
 
     async findAllEmployees(req, res) {
         try {
-            let employees = await prismaClient.employee.findMany();
+            let employees = await prismaClient.employee.findMany({
+                include: {
+                    vacations: true,
+                    user: true
+                }
+            });
             res.status(200).json(employees);
         } catch (error) {
             return res.status(500).json({ message: 'Erro ao listar funcionários.' });
@@ -46,14 +57,20 @@ export class EmployeeController {
 
     async updateEmployee(req, res) {
         const { id } = req.params;
-        const { name, cpf, admissionDate, isPendingVacation } = req.body;
+        const { employeeId, name, cpf, admissionDate, isPendingVacation } = req.body;
         try {
             const employeeFound = await prismaClient.employee.findUnique({ where: { id } });
             if (employeeFound == null) return res.status(404).json({ message: 'Funcionário não localizado!' });
 
             const employee = await prismaClient.employee.update({
                 where: { id },
-                data: { name, cpf, admissionDate: convertDateToISODateTime(admissionDate), isPendingVacation },
+                data: {
+                    employeeId,
+                    name,
+                    cpf,
+                    admissionDate: convertDateToISODateTime(admissionDate),
+                    isPendingVacation
+                },
             });
 
             return res.status(200).json(employee);
