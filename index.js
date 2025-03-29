@@ -4,6 +4,7 @@ import cors from 'cors';
 import { userRoutes } from './src/routes/UserRoutes.js';
 import { employeeRoutes } from './src/routes/EmployeeRoutes.js';
 import { vacationRoutes } from './src/routes/VacationRoutes.js';
+import { positionRoutes } from './src/routes/PositionRoutes.js';
 
 
 const app = express();
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use(userRoutes);
 app.use(employeeRoutes);
 app.use(vacationRoutes);
+app.use(positionRoutes);
 
 
 app.listen(PORT, () => {
