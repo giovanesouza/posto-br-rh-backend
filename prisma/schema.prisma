@@ -10,44 +10,50 @@ datasource db {
 // == Data Modeling ==
 
 model User {
-  id           String    @id        @default(auto()) @map("_id") @db.ObjectId
-  email        String    @unique
-  password     String
-  isAdmin      Boolean   @default(false)
+  id         String    @id @default(uuid()) @map("_id")
+  email      String    @unique
+  password   String
+  employeeId String?   @unique
+  employee   Employee? @relation(fields: [employeeId], references: [id])
+  isAdmin    Boolean   @default(false)
 
   @@map("users")
 }
 
 model Employee {
-  id                  String    @id      @default(auto()) @map("_id") @db.ObjectId
-  name                String
-  cpf                 String    @unique
-  admissionDate       String
-  vacations           Vacation[]
-  position            Position @relation(fields: [positionId], references: [id])
-  positionId          String    @db.ObjectId
+  id            String     @id @default(uuid()) @map("_id")
+  name          String
+  cpf           String     @unique
+  admissionDate DateTime
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  positionId    String?
+  position      Position?  @relation(fields: [positionId], references: [id])
+  vacations     Vacation[]
+  user          User?      @relation
 
   @@map("employees")
 }
 
 model Position {
-  id                  String    @id     @default(auto()) @map("_id") @db.ObjectId
-  name                String
-  cbo                 String    @unique
-  employees           Employee[]
+  id           String     @id @default(uuid()) @map("_id")
+  positionName String
+  cbo          String     @unique
+  employees    Employee[]
 
   @@map("positions")
 }
 
 model Vacation {
-  id                   String       @id  @default(auto()) @map("_id") @db.ObjectId
-  isVacationSold       Boolean      @default(false)
-  soldDays             Int          @default(0)
-  startDate            DateTime    
-  endDate              DateTime
-  createdAt            DateTime     @default(now())
-  employees            Employee    @relation(fields: [employeeId], references: [id])
-  employeeId           String       @db.ObjectId
+  id             String   @id @default(uuid()) @map("_id")
+  isVacationSold Boolean  @default(false)
+  soldDays       Int      @default(0)
+  startDate      DateTime
+  endDate        DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  employeeId     String
+  employee       Employee @relation(fields: [employeeId], references: [id])
 
   @@map("vacation")
 }
