@@ -49,7 +49,7 @@ export class EmployeeController {
 
             if (employee !== null) return res.status(200).json(employee);
 
-            res.status(404).json({ message: 'funcionário não localizado!' });
+            res.status(404).json({ message: 'Funcionário não localizado!' });
         } catch (error) {
             return res.status(500).json({ message: 'Erro ao buscar funcionário.' });
         }
