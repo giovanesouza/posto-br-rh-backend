@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "prisma generate",
+    "build": "npx prisma generate && npx prisma db push",
     "start": "node ./index.js",
     "dev": "nodemon ./index.js"
   },
