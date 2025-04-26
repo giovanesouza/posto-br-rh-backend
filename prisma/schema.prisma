@@ -31,7 +31,7 @@ model Employee {
   updatedAt         DateTime   @updatedAt
   position          Position?  @relation(fields: [positionId], references: [id])
   vacations         Vacation[]
-  user              User?      @relation
+  user              User?
 
   @@map("employees")
 }
@@ -56,5 +56,5 @@ model Vacation {
   updatedAt      DateTime @updatedAt
   employee       Employee @relation(fields: [employeeId], references: [id])
 
-  @@map("vacation")
+  @@map("vacations")
 }
