@@ -1,5 +1,5 @@
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
 
 import { userRoutes } from './src/routes/UserRoutes.js';
 import { employeeRoutes } from './src/routes/EmployeeRoutes.js';
@@ -10,17 +10,12 @@ import { loginRoutes } from './src/routes/LoginRoutes.js';
 const app = express();
 app.use(express.json());
 
-// app.use(cors(
-//     {
-//         origin: "*",
-//         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
-//     }
-// ));
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const STR_API = '/api/';
 
-app.get(STR_API, (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).json({
         message: 'Olá! Seja bem vindo(a) à Plataforma de RH do posto BR.',
     });
@@ -32,6 +27,9 @@ app.use(STR_API, vacationRoutes);
 app.use(STR_API, positionRoutes);
 app.use(STR_API, loginRoutes);
 
+// This line is only used for local tests
 app.listen(PORT, () => {
     console.log(`Servidor rodando em: http://localhost:${PORT}`);
 });
+
+export default app; // It's used in prod
