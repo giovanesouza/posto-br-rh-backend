@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors';
+// import cors from 'cors';
 
 import { userRoutes } from './src/routes/UserRoutes.js';
 import { employeeRoutes } from './src/routes/EmployeeRoutes.js';
@@ -10,12 +10,12 @@ import { loginRoutes } from './src/routes/LoginRoutes.js';
 const app = express();
 app.use(express.json());
 
-app.use(cors(
-    {
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    }
-));
+// app.use(cors(
+//     {
+//         origin: "*",
+//         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+//     }
+// ));
 
 const PORT = process.env.PORT || 3000;
 const STR_API = '/api/';
