@@ -2,23 +2,30 @@ import { prismaClient } from '../database/prismaClient.js';
 import bcrypt from 'bcryptjs';
 
 const findUserByEmail = async (email) =>
-	await prismaClient.user.findFirst({ where: { email: email } });
+	await prismaClient.user.findUnique({ where: { email: email } });
+
+const findEmployeeById = async (id) =>
+	await prismaClient.user.findUnique({ where: { employeeId: id } });
 
 export class UserController {
 	async createUser(req, res) {
-		const { email, password, isAdmin } = req.body;
+		const { email, password, isAdmin, employeeId } = req.body;
 		try {
 			const userFound = await findUserByEmail(email);
 			if (userFound) return res.status(409).json({ message: 'E-mail já cadastrado!' });
 
+			const existingUser = await findEmployeeById(employeeId)
+			if (existingUser) throw new Error("Este funcionário já está vinculado a outro usuário.");
+
 			const hashPass = bcrypt.hashSync(password, 10);
 
 			const user = await prismaClient.user.create({
-				data: { email, password: hashPass, isAdmin },
+				data: { email, password: hashPass, isAdmin, employeeId },
 			});
 
 			return res.status(201).json(user);
 		} catch (error) {
+			console.log(error)
 			return res.status(500).json({ message: 'Erro ao cadastrar usuário. Tente novamente!' });
 		}
 	};
@@ -36,7 +43,7 @@ export class UserController {
 	async findUserById(req, res) {
 		const { id } = req.params;
 		try {
-			const user = await prismaClient.user.findUnique({ where: { id } });
+			const user = await prismaClient.user.findUnique({ where: { id }, include: { employee: true } });
 
 			if (user !== null) return res.status(200).json(user);
 
@@ -50,16 +57,13 @@ export class UserController {
 		const { id } = req.params;
 		const { email, password } = req.body;
 		try {
-			const userFound = await findUserByEmail(email);
+			const userFound = await prismaClient.user.findUnique({ where: {id} });
 
-			if (userFound !== null) {
-				return res.status(409).json({ message: 'O e-mail informado não pode ser utilizado.' });
-			}
+			const hashPass = password ? bcrypt.hashSync(password, 10) : userFound.password;
 
-			const hashPass = bcrypt.hashSync(password, 10);
 			const user = await prismaClient.user.update({
 				where: { id },
-				data: { email, password: hashPass },
+				data: { email, password: hashPass }
 			});
 
 			return res.status(200).json(user);

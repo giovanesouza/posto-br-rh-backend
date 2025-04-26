@@ -9,8 +9,8 @@ export class VacationController {
     async createVacation(req, res) {
         const { employeeId, isVacationSold, soldDays, startDate, endDate } = req.body;
         try {
-            const employeeFound = await prismaClient.user.findUnique({ where: { id: employeeId } })
-            if (!employeeFound) return res.status(404).json({ message: 'Funcionário não localizado!' });
+            const employeeFound = await prismaClient.employee.findUnique({ where: { id: employeeId } })
+            if (employeeFound == null) return res.status(404).json({ message: 'Funcionário não localizado!' });
 
             const vacation = await prismaClient.vacation.create({
                 data: {
@@ -38,7 +38,7 @@ export class VacationController {
             });
             res.status(200).json(vacations);
         } catch (error) {
-            return res.status(500).json({ message: 'Erro ao listar fériass.' });
+            return res.status(500).json({ message: 'Erro ao listar férias.' });
         }
     };
 

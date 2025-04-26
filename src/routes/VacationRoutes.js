@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import { VacationController } from '../controllers/VacationController.js';
 import { FieldValidations } from '../middleware/fieldsValidationsMiddleware.js';
+import authorization from '../auth/authorization.js';
 
 const vacationRoutes = Router();
 const vacationController = new VacationController();
 const validation = new FieldValidations();
 
-vacationRoutes.post('/api/vacation', validation.validateVacationData, vacationController.createVacation);
-vacationRoutes.get('/api/vacation', vacationController.findAllVacation);
-vacationRoutes.get('/api/vacation/:id', validation.validateIdParameter, vacationController.findVacationById);
-vacationRoutes.patch('/api/vacation/:id', validation.validateIdParameter, vacationController.updateVacation);
-vacationRoutes.delete('/api/vacation/:id', validation.validateIdParameter, vacationController.deleteVacation);
+vacationRoutes.post('/vacation', authorization, validation.validateVacationData, vacationController.createVacation);
+vacationRoutes.get('/vacation', authorization, vacationController.findAllVacation);
+vacationRoutes.get('/vacation/:id', authorization, validation.validateIdParameter, vacationController.findVacationById);
+vacationRoutes.patch('/vacation/:id', authorization, validation.validateIdParameter, vacationController.updateVacation);
+vacationRoutes.delete('/vacation/:id', authorization, validation.validateIdParameter, vacationController.deleteVacation);
 
 export { vacationRoutes };
