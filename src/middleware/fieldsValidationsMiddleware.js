@@ -43,7 +43,7 @@ export class FieldValidations {
 		if (!name) emptyFields.push('nome');
 		if (!cpf) emptyFields.push('cpf');
 		if (!admissionDate) emptyFields.push('data de admissão');
-		if (!isPendingVacation) emptyFields.push('férias pendentes');
+		if (isPendingVacation == undefined) emptyFields.push('férias pendentes');
 
 		if (emptyFields.length == 0) {
 			return next();
@@ -61,15 +61,15 @@ export class FieldValidations {
 	validateVacationData(req, res, next) {
 		const emptyFields = [];
 		const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-		
+
 		const { employeeId, isVacationSold, soldDays, startDate, endDate } = req.body;
 
 		if (!employeeId.match(uuidRegex))
 			return res.status(400).json({ error: "ID do funcionário inválido!" });
 
 		if (!employeeId) emptyFields.push('id do funcionário');
-		if (!isVacationSold) emptyFields.push('férias vendidas');
-		if (!soldDays) emptyFields.push('total de dias vendidos');
+		if (isVacationSold == undefined) emptyFields.push('férias vendidas');
+		if (isVacationSold && !soldDays) emptyFields.push('total de dias vendidos');
 		if (!startDate) emptyFields.push('data de início das férias');
 		if (!endDate) emptyFields.push('data de término das férias');
 
