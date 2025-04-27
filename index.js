@@ -11,17 +11,21 @@ import { loginRoutes } from './src/routes/LoginRoutes.js';
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: [process.env.CORS_ORIGIN_URL, "http://127.0.0.1:5500", "http://localhost:5173"],
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    }
+));
 
 const PORT = process.env.PORT || 3000;
-const STR_API = '/api/';
 
 app.use(homeRoute);
-app.use(STR_API , userRoutes);
-app.use(STR_API , employeeRoutes);
-app.use(STR_API, vacationRoutes);
-app.use(STR_API, positionRoutes);
-app.use(STR_API, loginRoutes);
+app.use(userRoutes);
+app.use(employeeRoutes);
+app.use(vacationRoutes);
+app.use(positionRoutes);
+app.use(loginRoutes);
 
 // This line is only used for local tests
 app.listen(PORT, () => {
