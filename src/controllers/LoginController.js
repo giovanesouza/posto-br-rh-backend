@@ -7,7 +7,7 @@ export class LoginController {
         const { username, password } = req.body;
 
         try {
-            const user = await prismaClient.user.findUnique({ where: { username: username } });
+            const user = await prismaClient.user.findUnique({ where: { username } });
 
             if (!user) return res.status(404).json({ message: 'Usuário não encontrado.' });
 
