@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
+import { homeRoute } from './src/routes/HomeRoute.js';
 import { userRoutes } from './src/routes/UserRoutes.js';
 import { employeeRoutes } from './src/routes/EmployeeRoutes.js';
 import { vacationRoutes } from './src/routes/VacationRoutes.js';
@@ -15,12 +16,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3000;
 const STR_API = '/api/';
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Olá! Seja bem vindo(a) à Plataforma de RH do posto BR.',
-    });
-});
-
+app.use(homeRoute);
 app.use(STR_API , userRoutes);
 app.use(STR_API , employeeRoutes);
 app.use(STR_API, vacationRoutes);
