@@ -17,9 +17,9 @@ export class FieldValidations {
 	// Data validations - Create User and Login
 	valitadeUserData(req, res, next) {
 		const emptyFields = [];
-		const { email, password } = req.body;
+		const { username, password } = req.body;
 
-		if (!email) emptyFields.push('e-mail');
+		if (!username) emptyFields.push('usuário');
 		if (!password) emptyFields.push('senha');
 
 		if (emptyFields.length == 0) {

@@ -1,18 +1,18 @@
 import { prismaClient } from '../database/prismaClient.js';
 import bcrypt from 'bcryptjs';
 
-const findUserByEmail = async (email) =>
-	await prismaClient.user.findUnique({ where: { email: email } });
+const findUserByUsername = async (username) =>
+	await prismaClient.user.findUnique({ where: { username: username } });
 
 const findEmployeeById = async (id) =>
 	await prismaClient.user.findUnique({ where: { employeeId: id } });
 
 export class UserController {
 	async createUser(req, res) {
-		const { email, password, isAdmin, employeeId } = req.body;
+		const { username, password, isAdmin, employeeId } = req.body;
 		try {
-			const userFound = await findUserByEmail(email);
-			if (userFound) return res.status(409).json({ message: 'E-mail já cadastrado!' });
+			const userFound = await findUserByUsername(username);
+			if (userFound) return res.status(409).json({ message: 'Usuário já cadastrado!' });
 
 			const existingUser = await findEmployeeById(employeeId)
 			if (existingUser) throw new Error("Este funcionário já está vinculado a outro usuário.");
@@ -20,7 +20,7 @@ export class UserController {
 			const hashPass = bcrypt.hashSync(password, 10);
 
 			const user = await prismaClient.user.create({
-				data: { email, password: hashPass, isAdmin, employeeId },
+				data: { username, password: hashPass, isAdmin, employeeId },
 			});
 
 			return res.status(201).json(user);
@@ -55,7 +55,7 @@ export class UserController {
 
 	async updateUser(req, res) {
 		const { id } = req.params;
-		const { email, password } = req.body;
+		const { username, password } = req.body;
 		try {
 			const userFound = await prismaClient.user.findUnique({ where: {id} });
 
@@ -63,7 +63,7 @@ export class UserController {
 
 			const user = await prismaClient.user.update({
 				where: { id },
-				data: { email, password: hashPass }
+				data: { username, password: hashPass }
 			});
 
 			return res.status(200).json(user);

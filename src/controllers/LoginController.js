@@ -4,11 +4,11 @@ import jwt from 'jsonwebtoken';
 
 export class LoginController {
     async sign(req, res) {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
         try {
             const user = await prismaClient.user.findUnique({
-                where: { email },
+                where: { username },
                 include: { employee: true }
             });
 
