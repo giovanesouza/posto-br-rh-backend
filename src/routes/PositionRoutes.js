@@ -10,7 +10,7 @@ const validation = new FieldValidations();
 positionRoutes.post('/positions', authorization, validation.validatePositionData, positionController.createPosition);
 positionRoutes.get('/positions', authorization, positionController.findAllPositions);
 positionRoutes.get('/positions/:id', authorization, validation.validateIdParameter, positionController.findPositionById);
-positionRoutes.patch('/positions/:id', authorization, validation.validateIdParameter, positionController.updatePosition);
+positionRoutes.put('/positions/:id', authorization, validation.validateIdParameter, positionController.updatePosition);
 positionRoutes.delete('/positions/:id', authorization, validation.validateIdParameter, positionController.deleteposition);
 
 export { positionRoutes };
