@@ -18,7 +18,11 @@
   "servers": [
     {
       "url": "http://localhost:3000",
-      "description": "Teste local"
+      "description": "Teste Local"
+    },
+    {
+      "url": "https://posto-br-rh-api.vercel.app",
+      "description": "Teste Cloud"
     }
   ],
   "paths": {
