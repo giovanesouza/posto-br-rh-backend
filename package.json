@@ -1,7 +1,7 @@
 {
   "name": "posto-br-rh-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Trata de uma API para Controle de Férias de Funcionários do Posto BR. Conta com a arquitetura MVC com CRUDS para Usuários, Funcionários, Cargos, Férias e autenticação. A API foi desenvolvida em Node.js com Express e Prisma, utilizando MongoDB como banco de dados.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,6 +13,19 @@
   "keywords": [
     "node",
     "prisma",
+    "mongodb",
+    "express",
+    "rest",
+    "api",
+    "swagger",
+    "documentation",
+    "authentication",
+    "authorization",
+    "bcrypt",
+    "jsonwebtoken",
+    "cors",
+    "dotenv",
+    "nodemon",
     "mvc"
   ],
   "author": {
@@ -32,7 +45,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.16.0"
+    "mongodb": "^6.16.0",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
