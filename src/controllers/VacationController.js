@@ -1,7 +1,7 @@
 import { prismaClient } from '../database/prismaClient.js';
 
-const findEmployeeByCPF = async (cpf) =>
-    await prismaClient.vacation.findFirst({ where: { cpf: cpf } });
+const findEmployeeById = async (employId) =>
+    await prismaClient.employee.findUnique({ where: { id: employId } });
 
 const convertDateToISODateTime = (date) => new Date(date).toISOString();
 
@@ -9,7 +9,7 @@ export class VacationController {
     async createVacation(req, res) {
         const { employeeId, isVacationSold, soldDays, startDate, endDate } = req.body;
         try {
-            const employeeFound = await prismaClient.employee.findUnique({ where: { id: employeeId } })
+            const employeeFound = await findEmployeeById(employeeId);
             if (employeeFound == null) return res.status(404).json({ message: 'Funcionário não localizado!' });
 
             const vacation = await prismaClient.vacation.create({
@@ -30,7 +30,6 @@ export class VacationController {
 
     async findAllVacation(req, res) {
         try {
-            // Making a filter to get by year, employee....
             let vacations = await prismaClient.vacation.findMany({
                 include: {
                     employee: true
@@ -65,7 +64,11 @@ export class VacationController {
         const { employeeId, isVacationSold, soldDays, startDate, endDate } = req.body;
         try {
             const vacationFound = await prismaClient.vacation.findUnique({ where: { id } });
+            const employeeFound = await findEmployeeById(employeeId);
+
             if (vacationFound == null) return res.status(404).json({ message: 'Férias não localizadas!' });
+
+            if (employeeFound == null) return res.status(404).json({ message: 'Funcionário não localizado!' });
 
             const vacation = await prismaClient.vacation.update({
                 where: { id },
