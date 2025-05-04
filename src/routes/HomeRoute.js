@@ -3,7 +3,7 @@ const homeRoute = Router();
 
 homeRoute.get('/', (req, res) => {
     res.status(200).json({
-        message: 'Olá! Seja bem vindo(a) à Plataforma de RH do posto BR.',
+        message: 'Olá! Seja bem vindo(a) ao Sistema de Controle de Férias de Funcionários do posto BR.',
     });
 });
 

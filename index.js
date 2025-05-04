@@ -1,4 +1,6 @@
 import express from 'express';
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs  from "./swagger.json" assert { type: "json" };
 import cors from 'cors';
 
 import { homeRoute } from './src/routes/HomeRoute.js';
@@ -18,6 +20,7 @@ app.use(cors(
     }
 ));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 const PORT = process.env.PORT || 3000;
 
 app.use(homeRoute);
