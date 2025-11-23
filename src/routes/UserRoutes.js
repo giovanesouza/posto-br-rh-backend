@@ -7,7 +7,7 @@ const userRoutes = Router();
 const userController = new UserController();
 const validation = new FieldValidations();
 
-userRoutes.post('/users', authorize(), validation.valitadeUserData, userController.createUser);
+userRoutes.post('/users', authorize(), validation.valitadeCreateUserData, userController.createUser);
 userRoutes.get('/users', authorize(), userController.findAllUsers);
 userRoutes.get('/users/:id', authorize(), validation.validateIdParameter, userController.findUserById);
 userRoutes.patch('/users/:id', authorize(), validation.validateIdParameter, userController.updateUser);
