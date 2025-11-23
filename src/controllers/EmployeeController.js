@@ -34,9 +34,6 @@ export class EmployeeController {
                 where: {
                     ...(name && { name: { contains: name.toLowerCase(), mode: 'insensitive' } })
                 },
-                omit: {
-                    cpf: true
-                },
                 include: {
                     vacations: true,
                     user: {

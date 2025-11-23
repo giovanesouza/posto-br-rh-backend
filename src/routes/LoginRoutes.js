@@ -6,6 +6,6 @@ const loginRoutes = Router();
 const loginController = new LoginController();
 const validation = new FieldValidations();
 
-loginRoutes.post('/sign-in', validation.valitadeUserData, loginController.sign);
+loginRoutes.post('/sign-in', validation.valitadeLoginUserData, loginController.sign);
 
 export { loginRoutes };

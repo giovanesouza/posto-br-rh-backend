@@ -14,8 +14,30 @@ export class FieldValidations {
 		return next();
 	};
 
-	// Data validations - Create User and Login
-	valitadeUserData(req, res, next) {
+	// Data validations - Create User
+	valitadeCreateUserData(req, res, next) {
+		const emptyFields = [];
+		const { username, password, employeeId } = req.body;
+
+		if (!username) emptyFields.push('usuário');
+		if (!password) emptyFields.push('senha');
+		if (!employeeId) emptyFields.push('funcionário');
+
+		if (emptyFields.length == 0) {
+			return next();
+		} else {
+			if (emptyFields.length > 1) {
+				return res
+					.status(400)
+					.json({ message: `Os campos ${emptyFields.join(', ')} são obrigatórios!` });
+			} else {
+				return res.status(400).json({ message: `O campo ${emptyFields} é obrigatório!` });
+			}
+		}
+	};
+
+	// Data validations - Login
+	valitadeLoginUserData(req, res, next) {
 		const emptyFields = [];
 		const { username, password } = req.body;
 
