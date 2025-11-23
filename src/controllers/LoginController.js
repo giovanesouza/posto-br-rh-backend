@@ -15,15 +15,17 @@ export class LoginController {
 
             if (!verifyPassword) return res.status(404).json({ message: 'Senha incorreta.' });
 
-            const token = jwt.sign(
-                {
-                    userId: user.id,
-                    isAdmin: user.isAdmin
-                },
-                process.env.SECRET_JWT, { expiresIn: '1h' },
-            );
+            const userData = {
+                userId: user.id,
+                profile: user.profile,
+                employeeId: user.employeeId,
+                isAdmin: user.isAdmin
+            };
 
-            return res.status(200).json({ id: user.id, isAdmin: user.isAdmin, token: token });
+            const token = jwt.sign(userData, process.env.SECRET_JWT, { expiresIn: '1h' });
+            userData.token = token;
+            
+            return res.status(200).json(userData);
         } catch (error) {
             return res.status(500).json({ message: 'Erro ao realizar login.' });
         }
