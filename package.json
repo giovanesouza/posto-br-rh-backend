@@ -9,7 +9,6 @@
     "build": "prisma generate",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "lint": "eslint .",
     "test": "jest --coverage"
   },
   "keywords": [

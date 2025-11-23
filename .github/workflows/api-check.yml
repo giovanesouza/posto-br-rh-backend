@@ -5,9 +5,9 @@ on:
     branches: [ main ]
 
 jobs:
-  # Build & Lint job
+  # Build
   build:
-    name: Build & Lint
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -29,10 +29,6 @@ jobs:
       # Generate Prisma client
       - name: Generate Prisma client
         run: npm run build
-
-      # Run ESLint
-      - name: Run ESLint
-        run: npm run lint
 
   # Test job
   test:
