@@ -106,15 +106,13 @@ export class EmployeeController {
                 include: { vacations: true },
             });
 
+            if(!employeeFound) return res.status(404).json({ message: 'Funcionário não localizado!' });
+
             if (employeeFound.vacations.length > 0)
                 return res.status(400).json({ message: 'Não é possível excluir este funcionário, pois há férias vinculadas à ele.' });
 
-            if (employeeFound !== null) {
-                await prismaClient.employee.delete({ where: { id }, });
-                return res.status(204).send();
-            };
-
-            res.status(404).json({ message: 'Funcionário não localizado!' });
+            await prismaClient.employee.delete({ where: { id } });
+            return res.status(204).send();
         } catch (error) {
             return res.status(500).json({ message: 'Erro ao excluir funcionário.' });
         }

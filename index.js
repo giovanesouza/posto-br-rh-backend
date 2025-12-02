@@ -4,7 +4,7 @@ dotenv.config({ path: envFile, override: true });
 
 import express from 'express';
 import swaggerUi from "swagger-ui-express";
-import swaggerDocs from "./swagger.json" assert { type: "json" };
+import swaggerDocs from "./swagger.json" with { type: "json" };
 import cors from 'cors';
 
 import { homeRoute } from './src/routes/HomeRoute.js';
