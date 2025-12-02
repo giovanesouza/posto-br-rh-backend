@@ -3,7 +3,7 @@ import app from "../index.js";
 
 let createdEmployeeId;
 
-describe("Employees API", () => {
+describe("Employees", () => {
   it("1 should return 400 when required fields are missing", async () => {
     const res = await request(app)
       .post("/employees")

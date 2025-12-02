@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../index.js";
 
-describe("Home API", () => {
+describe("Home", () => {
   it("1 should return welcome message and documentation link", async () => {
     const res = await request(app).get("/");
 
