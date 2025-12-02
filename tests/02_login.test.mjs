@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../index.js";
 
-describe("Login API", () => {
+describe("Login", () => {
   it("1 should return 400 when username or password is missing", async () => {
     const res = await request(app).post("/sign-in").send({
       username: "",
