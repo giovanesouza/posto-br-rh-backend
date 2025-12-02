@@ -3,6 +3,7 @@ const config = {
   clearMocks: true,
   collectCoverage: false,
   testEnvironment: "node",
+  setupFilesAfterEnv: ["<rootDir>/tests/utils/globalSetup.mjs"],
   transform: {},
 };
 
