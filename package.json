@@ -9,7 +9,7 @@
     "build": "prisma generate",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --coverage"
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [
     "node",
@@ -51,9 +51,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.9",
-    "prisma": "^6.5.0"
+    "prisma": "^6.5.0",
+    "supertest": "^7.1.4"
   }
 }

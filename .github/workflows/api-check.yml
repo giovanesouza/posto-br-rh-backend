@@ -5,7 +5,6 @@ on:
     branches: [ main ]
 
 jobs:
-  # Build
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -30,36 +29,42 @@ jobs:
       - name: Generate Prisma client
         run: npm run build
 
-  # Test job
-#   test:
-#     name: Test
-#     runs-on: ubuntu-latest
-#     needs: build   # run only if build passes
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: build  # run only if build passes
 
-#     steps:
-#       # Checkout repository
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+    env: # Aqui você injeta os secrets
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_JWT: ${{ secrets.SECRET_JWT }}
+      USER_TEST: ${{ secrets.USER_TEST }}
+      PASSWORD_TEST: ${{ secrets.PASSWORD_TEST }}
+      NODE_ENV: test
 
-#       # Setup Node.js
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '20'
-#           cache: 'npm'
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       # Install dependencies
-#       - name: Install dependencies
-#         run: npm install
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-#       # Run tests
-#       - name: Run tests
-#         run: npm test
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
 
-#       # Upload coverage report (optional)
-#       - name: Upload coverage report
-#         if: success()
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: coverage-report
-#           path: coverage
+      # Run tests
+      - name: Run Tests
+        run: npm test
+
+      # Upload coverage report (optional)
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
