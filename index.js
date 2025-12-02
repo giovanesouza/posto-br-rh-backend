@@ -1,6 +1,10 @@
+import dotenv from "dotenv";
+const envFile = process.env.NODE_ENV === "test" ? ".env.test" : ".env";
+dotenv.config({ path: envFile, override: true });
+
 import express from 'express';
 import swaggerUi from "swagger-ui-express";
-import swaggerDocs  from "./swagger.json" assert { type: "json" };
+import swaggerDocs from "./swagger.json" assert { type: "json" };
 import cors from 'cors';
 
 import { homeRoute } from './src/routes/HomeRoute.js';
@@ -30,9 +34,10 @@ app.use(vacationRoutes);
 app.use(positionRoutes);
 app.use(loginRoutes);
 
-// This line is only used for local tests
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em: http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+    app.listen(PORT, () => {
+        console.log(`Servidor rodando em: http://localhost:${PORT}`);
+    });
+};
 
 export default app; // It's used in prod
