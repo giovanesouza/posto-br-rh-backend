@@ -54,7 +54,7 @@ describe("Vacations", () => {
     expect([200, 404]).toContain(res.status);
   });
 
-  it("should fail when id parameter is invalid", async () => {
+  it("5 should fail when id parameter is invalid", async () => {
     const res = await request(app)
       .get("/vacation/invalid-id")
       .set("Authorization", `Bearer ${global.token}`);
@@ -63,7 +63,7 @@ describe("Vacations", () => {
     expect(res.body.message).toBe("Parâmetro 'id' inválido!");
   });
 
-  it("5 should update a vacation successfully", async () => {
+  it("6 should update a vacation successfully", async () => {
     const res = await request(app)
       .patch(`/vacation/${validUUID}`)
       .set("Authorization", `Bearer ${global.token}`)
@@ -78,7 +78,7 @@ describe("Vacations", () => {
     expect([200, 404]).toContain(res.status);
   });
 
-  it("6 should delete a vacation successfully", async () => {
+  it("7 should delete a vacation successfully", async () => {
     const res = await request(app)
       .delete(`/vacation/${validUUID}`)
       .set("Authorization", `Bearer ${global.token}`);
@@ -86,7 +86,7 @@ describe("Vacations", () => {
     expect([204, 404]).toContain(res.status);
   });
 
-  it("7 should fail when deleting with invalid id", async () => {
+  it("8 should fail when deleting with invalid id", async () => {
     const res = await request(app)
       .delete("/vacation/invalid-id")
       .set("Authorization", `Bearer ${global.token}`);

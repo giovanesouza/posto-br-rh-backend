@@ -14,26 +14,26 @@ const config = {
   // No custom transformations (default behavior)
   transform: {},
 
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 50,   // Minimum global branch coverage (lower, since we enforce stricter rules below): if/else, switch
-  //     functions: 50,  // Minimum global function coverage
-  //     lines: 50,      // Minimum global line coverage
-  //     statements: 50, // Minimum global statement coverage
-  //   },
-  //   "./src/controllers/": {
-  //     branches: 80,   // Require at least 80% branch coverage in controllers
-  //     functions: 80,  // Require at least 80% function coverage in controllers
-  //     lines: 80,      // Require at least 80% line coverage in controllers
-  //     statements: 80, // Require at least 80% statement coverage in controllers
-  //   },
-  //   "./src/routes/": {
-  //     branches: 80,   // Require at least 80% branch coverage in routes
-  //     functions: 80,  // Require at least 80% function coverage in routes
-  //     lines: 80,      // Require at least 80% line coverage in routes
-  //     statements: 80, // Require at least 80% statement coverage in routes
-  //   },
-  // },
+  coverageThreshold: {
+    global: {
+      branches: 50,   // Minimum global branch coverage (lower, since we enforce stricter rules below): if/else, switch
+      functions: 50,  // Minimum global function coverage
+      lines: 50,      // Minimum global line coverage
+      statements: 50, // Minimum global statement coverage
+    },
+    // "./src/controllers/": {
+    //   branches: 80,   // Require at least 80% branch coverage in controllers
+    //   functions: 80,  // Require at least 80% function coverage in controllers
+    //   lines: 80,      // Require at least 80% line coverage in controllers
+    //   statements: 80, // Require at least 80% statement coverage in controllers
+    // },
+    // "./src/routes/": {
+    //   branches: 80,   // Require at least 80% branch coverage in routes
+    //   functions: 80,  // Require at least 80% function coverage in routes
+    //   lines: 80,      // Require at least 80% line coverage in routes
+    //   statements: 80, // Require at least 80% statement coverage in routes
+    // },
+  },
 
 };
 
