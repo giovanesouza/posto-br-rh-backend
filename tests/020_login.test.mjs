@@ -13,7 +13,7 @@ describe("Login", () => {
 
   it("2 should return 200 when username and password are correct", async () => {
     const res = await request(app).post("/sign-in").send({
-      username: process.env.USER_TEST,
+      username: process.env.USERNAME_TEST,
       password: process.env.PASSWORD_TEST
     });
     expect(res.status).toBe(200);
@@ -32,7 +32,7 @@ describe("Login", () => {
 
   it("4 should return 404 when password is incorrect", async () => {
     const res = await request(app).post("/sign-in").send({
-      username: process.env.USER_TEST,
+      username: process.env.USERNAME_TEST,
       password: "senha_errada"
     });
     expect(res.status).toBe(404);
@@ -41,7 +41,7 @@ describe("Login", () => {
 
   it("5 should return 400 when only username is provided", async () => {
     const res = await request(app).post("/sign-in").send({
-      username: process.env.USER_TEST,
+      username: process.env.USERNAME_TEST,
       password: ""
     });
     expect(res.status).toBe(400);
