@@ -34,11 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build  # run only if build passes
 
-    env: # Aqui você injeta os secrets
+    env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       SECRET_JWT: ${{ secrets.SECRET_JWT }}
-      USER_TEST: ${{ secrets.USER_TEST }}
+      USERNAME_TEST: ${{ secrets.USERNAME_TEST }}
       PASSWORD_TEST: ${{ secrets.PASSWORD_TEST }}
+      EMPLOYEE_ID_FOR_USER: ${{ secrets.EMPLOYEE_ID_FOR_USER }}
+      USER_ID: ${{ secrets.USER_ID }}
       NODE_ENV: test
 
     steps:
