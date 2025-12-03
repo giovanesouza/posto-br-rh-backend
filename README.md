@@ -5,7 +5,7 @@
 Trata de uma API para Controle de Férias para uma empresa parceira, `realizado como parte de atividades extensionistas (PEX) em alinhamento com o Objetivo de Desenvolvimento Sustentável (ODS) 8 da ONU`: **"Trabalho decente e crescimento econômico"**. **O projeto teve como foco proporcionar melhorias na organização e gestão dos recursos humanos, promovendo práticas mais eficientes, transparentes e sustentáveis no ambiente de trabalho**.
 O sistema foi desenvolvido utilizando tecnologias de código aberto e plataformas gratuitas, visando acessibilidade e sustentabilidade financeira para a organização.
 
-> Projeto desenvolvido como parte avaliativa da disciplina `PROJETO DE EXTENSÃO IV`, do curso de `ADS`.
+> Projeto desenvolvido como parte avaliativa da disciplina `PROJETO DE EXTENSÃO V`, do curso de `ADS`.
 
 
 ## 💻 Tecnologias e ferramentas utilizadas
@@ -17,9 +17,9 @@ O sistema foi desenvolvido utilizando tecnologias de código aberto e plataforma
 ![Tests - Postman](https://img.shields.io/badge/Postman-316192?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![JEST](https://img.shields.io/badge/Jest-C53C14?style=for-the-badge&logo=jest&logoColor=white)
 ![Deploy - Vercel](https://img.shields.io/badge/Vercel-316192?style=for-the-badge&logo=vercel&logoColor=white)
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width="30" />
-
 
 ## 📝 Pré-requesitos para testar a API localmente
 
@@ -158,3 +158,44 @@ model Vacation {
 Após inicializar a aplicação (`npm start`), você pode utilizar a documentação **Swagger** para realizar testes por meio dos `endpoints` disponíveis, além de consultar todos os `schemas`. Para tanto, acesse o endpoint a seguir: `http://localhost:3000/api-docs`.
 
 ![Documentação Swagger](./doc/images/doc-swagger.jpg "Documentação Swagger")
+
+
+## 🧪 Testes Automatizados 🆕
+
+O projeto agora conta com uma suite de testes automatizados utilizando `Jest` + `Supertest`, garantindo maior segurança, qualidade e confiabilidade no comportamento da API.
+
+### 🧰 O que foi testado?
+
+- **Login**
+  - Validações de campos obrigatórios
+  - Retorno apropriado para credenciais válidas e inválidas
+- **Usuários**
+  - Criação
+  - Login
+  - Busca por ID
+  - Atualização parcial
+  - Erros esperados (ex.: duplicidade)
+- **Funcionários**
+  - Criação
+  - Listagem
+  - Filtro por nome
+  - Atualização
+  - Validações de campos obrigatórios
+- **Cargos**
+  - CRUD completo
+  - Validação de CBO duplicado
+- **Férias**
+  - Regra de férias vendidas
+  - Data inicial obrigatória
+  - Geração automática de data final
+  - Casos de erro e sucesso
+
+### ▶️ Como rodar os testes?
+
+Antes, configure o `.env.test`.
+
+Em seguida, execute:
+
+```bash
+npm test
+```
